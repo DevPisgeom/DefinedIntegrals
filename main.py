@@ -24,26 +24,39 @@ def integrate_rectangles(f, a, b, n):
   integral = 0
   for i in range(n):
     # Calcola l'ascissa del vertice sinistro del rettangolo i-esimo
+    if(i==0 or i==n-1):
+        color=True
+    else:
+        color=False
     x_i = a + (i * width) #SINISTRA
     #x_i+width DESTRA
     
     # Calcola l'altezza del rettangolo i-esimo
     y_i = f.subs({x: x_i + 0.5*width}).evalf() #ALTEZZA
-    draw_rectangle(float(x_i) , float(x_i+width) , float(y_i))
+    draw_rectangle(float(x_i) , float(x_i+width) , float(y_i), color )
+    EST_sinistro=float(x_i)
+    EST_destro=float(x_i+width)
+    altezza=float(y_i)
+    area_rettangolo=float(width * altezza)
+    print(f"Rettangolo Numero: {i}, Estremo Sinistro: {EST_sinistro}, Estremo Destro: {EST_destro}, Area : {area_rettangolo}")
     # Aggiunge l'area del rettangolo i-esimo all'approssimazione dell'integrale
-    integral += width * y_i
+    integral += area_rettangolo
   
   return integral
-def draw_rectangle(sinistra,destra,altezza):
+def draw_rectangle(sinistra,destra,altezza,color_check):
     #per disegnare un rettangolo devo fare 3 rette
     #la prima con x=sinistra alta fino altezza
     #la seconda con x=destra alta fino altezza
     #la terza che va da x=sinista y=f(sinistra) a x=destra y=f(destra)
 
-    
-    plt.plot([sinistra,sinistra],[0,altezza],'yellow')
-    plt.plot([destra,destra],[0,altezza],'red')
-    plt.plot([sinistra,destra],[altezza,altezza],'blue')
+    if(color_check):
+      plt.plot([sinistra,sinistra],[0,altezza],'red')
+      plt.plot([destra,destra],[0,altezza],'red')
+      plt.plot([sinistra,destra],[altezza,altezza],'blue')
+    else:
+      #plt.plot([sinistra,sinistra],[0,altezza],'yellow')
+      plt.plot([destra,destra],[0,altezza],'yellow')
+      plt.plot([sinistra,destra],[altezza,altezza],'blue')
     #plt.show()
 
 def draw_function(f,a,b):
@@ -52,7 +65,7 @@ def draw_function(f,a,b):
   y_func = sympy.lambdify(x, f, 'numpy')
   
   # Generate the x values
-  x = np.arange(float(a)-float(3),float(b)+float(3), 0.1)
+  x = np.arange(float(a)-float(3),float(b)+float(3), 0.01)
   
   # Evaluate the function at the x values
   y = y_func(x)
