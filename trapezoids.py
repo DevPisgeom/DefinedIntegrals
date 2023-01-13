@@ -39,7 +39,7 @@ def integrate_trapezoids(f1, a, b, n):
     area_trapezio = float((width * (y_i + y_i_destro)) / 2)
     # Aggiunge l'area del trapezio i-esimo all'approssimazione dell'integrale
     print(f"Trapezio Numero: {i}, Estremo Sinistro: {x_i}, Estremo Destro: {x_i_destro}, Area : {area_trapezio}")
-    integral += area_trapezio
+    integral += float(area_trapezio)
   return integral
 
 def draw_trapezoid(sinistra, destra, altezza_sinistra, altezza_destra,color_check):
