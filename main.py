@@ -2,8 +2,11 @@ import sympy
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+
+
 def integrate_rectangles(f, a, b, n):
-  """Calcula l'integrale definito di f sull'intervallo [a, b] usando il metodo dei rettangoli.
+  """Calcola l'integrale definito di f sull'intervallo [a, b] usando il metodo dei rettangoli.
   
   Args:
     f: La funzione da integrare (una funzione di una sola variabile)
@@ -79,6 +82,7 @@ def draw_function(f,a,b):
 
 
 # Input the expression from the user
+print("Metodo dei rettangoli:")
 expr1 = input('Inserisci la funzione da integrare: ')
 
 # Convert the expression to a SymPy expression
@@ -86,11 +90,13 @@ x = sympy.Symbol('x')
 expr = sympy.sympify(expr1)
 print("Funzione inserita: ")
 print(expr)
+expr_copy=expr
 a = input("Inserisci il limite inferiore dell'intervallo di integrazione: ")
 b = input("Inserisci il limite superiore dell'intervallo di integrazione: ")
 n = input("Inserisci il numero di rettangoli: ")
 
-result = integrate_rectangles(expr, a, b, n)
+result = integrate_rectangles(expr_copy,a,b,n)
 print(f"Il risultato dell'integrale è: {result}")
 draw_function(expr , a, b)
+
 
